@@ -20,16 +20,21 @@ export class LoginComponent {
 
     login(formValues) {
         this.loginInProgress = true;
-        this.auth.authenticateUser(formValues.username, formValues.password).subscribe((response: Response) => {
-            //To be reviewed. Currently using fake (mocked) response
-            if (response && response['_body'] == "[]") {
-                this.loginInvalid = true;
-                this.toastr.error("Invalid Username or Password", "Login Error");
-            } else {
-                this.router.navigate(['layout/dashboard']);
-            }
+        if (formValues.username && formValues.password) {
+            this.auth.authenticateUser(formValues.username, formValues.password).subscribe((response: Response) => {
+                //To be reviewed. Currently using fake (mocked) response
+                if (response && response['_body'] == "[]") {
+                    this.loginInvalid = true;
+                    this.toastr.error("Invalid Username or Password", "Login Error");
+                } else {
+                    this.router.navigate(['layout/dashboard']);
+                }
+                this.loginInProgress = false;
+            });
+        } else {
+            this.toastr.error("Kindly enter username and password", "Incomplete entry");
             this.loginInProgress = false;
-        });
+        }
     }
 
     private closeModal(): void {
