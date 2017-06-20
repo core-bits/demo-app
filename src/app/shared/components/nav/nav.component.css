@@ -1,0 +1,21 @@
+@media screen and (min-width: 768px){
+    .navbar-header{
+        margin-left: 20px;
+    }
+
+    .navbar-right{
+        margin-right: 20px;
+    }
+}
+
+li a{
+    cursor: pointer;
+}
+
+.navbar-brand{
+    color: #fff;
+}
+
+ul.navbar-right li > a {
+    color: #fff;
+}

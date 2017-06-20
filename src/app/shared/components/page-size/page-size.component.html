@@ -1,0 +1,3 @@
+<select [(ngModel)]="selected" (ngModelChange)="onChange($event)" class="form-control input-sm" >
+  <option *ngFor="let size of collection">{{size}}</option>
+</select>

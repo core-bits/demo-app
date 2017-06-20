@@ -1,0 +1,2 @@
+<input id="{{searchable.id}}" name="{{searchable.name}}" class="form-control input-sm" type="{{searchable.inputType}}" [(ngModel)]="searchable.startValue" (blur)="filterChanged($event)"
+    (keyup.enter)="filterChanged($event)"/>

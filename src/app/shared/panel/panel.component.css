@@ -1,0 +1,31 @@
+@media screen and (min-width: 768px) {
+    .panel-size {
+        left: 35%;
+        right: 35%;
+        position: absolute
+    }
+}
+
+@media screen and (max-width: 767px) {
+	.panel-size {
+		left: 20%;
+		right: 20%;
+		position: absolute
+	}
+}
+
+.panel-top {
+	top: 25%;
+}
+
+.panel-margin {
+	margin: 5px 0px;
+}
+
+.panel-button {
+	margin-left: 2px;
+}
+
+.panel-heading h3{
+	font-weight: 700;
+}

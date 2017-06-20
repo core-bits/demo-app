@@ -1,0 +1,59 @@
+<app-page-title [title]="'Album Management'" [icon]="'glyphicon-picture'"></app-page-title>
+
+<div class="row">
+  <div class="pull-right control-holder">
+    <label>Page Size</label>
+    <page-size (changed)="onPageSizeChange($event)"></page-size>
+    <pagination [page-size]="pageSizeSelected" [total-size]="totalSize" (changed)="onPaginateChange($event)"></pagination>
+  </div>
+</div>
+
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading"><label>Albums</label></div>
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th>S/No</th>
+          <th>
+            <sort [sort-field]="sortables[0]" (changed)="onSortChange($event)">UserId</sort>
+          </th>
+          <th>
+            <sort [sort-field]="sortables[1]" (changed)="onSortChange($event)">Title</sort>
+          </th>
+          <th>Actions</th>
+        </tr>
+        <tr>
+          <th>&nbsp;</th>
+          <th>
+            <search-input [search-field]="searchables[0]" (changed)="onFilterChange($event)"></search-input>
+          </th>
+          <th>
+            <search-input [search-field]="searchables[1]" (changed)="onFilterChange($event)"></search-input>
+          </th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let album of albums; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{album.userId}}</td>
+        <td>{{album.title}}</td>
+        <td>
+          <a custom-modal-trigger="album" (click)="operation='Album - View'">
+          <span class="glyphicon glyphicon-search"></span>
+        </a>
+          <a custom-modal-trigger="album" (click)="operation='Album - View'">
+          <span class="glyphicon glyphicon-edit"></span>
+        </a>
+          <a custom-modal-trigger="album" (click)="operation='Album - View'">
+          <span class="glyphicon glyphicon-trash"></span>
+        </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<custom-modal [modal-title]="operation" [modal-id]="'album'">
+  <app-album-detail></app-album-detail>
+</custom-modal>

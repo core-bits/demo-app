@@ -1,0 +1,7 @@
+<!--<span class="glyphicon glyphicon-search" arial-hidden="true"></span>-->
+<a (click)="onSortChange()" class="text-wrap" [class.active-sort]="asc || desc">
+    <ng-content></ng-content>
+    <span *ngIf="asc" class="glyphicon glyphicon-sort-by-attributes" arial-hidden="true"></span>
+    <span *ngIf="desc" class="glyphicon glyphicon-sort-by-attributes-alt" arial-hidden="true"></span> 
+    <span *ngIf="!asc && !desc" class="glyphicon glyphicon-sort" arial-hidden="true"></span> 
+</a>

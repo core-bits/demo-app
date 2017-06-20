@@ -1,0 +1,8 @@
+ul.pagination.input-sm{
+    margin: 20px 0px -5px 0px;
+    padding-right: 0px;
+}
+
+li > span{
+    cursor: pointer;
+}

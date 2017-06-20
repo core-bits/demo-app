@@ -1,0 +1,11 @@
+.login-container div {
+	margin: 5px 0px;
+}
+
+.login-container button {
+	margin-left: 5px;
+}
+
+.login-container label {
+	font-weight: normal;
+}

@@ -1,0 +1,73 @@
+<app-page-title [title]="'User Management'" [icon]="'glyphicon-user'"></app-page-title>
+
+<div class="row">
+  <div class="pull-right control-holder">
+    <label>Page Size</label>
+    <page-size [collection]="pageSizeCollection" [default]="pageSizeSelected" (changed)="onPageSizeChange($event)"></page-size>
+    <pagination [max]="max" [page-size]="pageSizeSelected" [total-size]="totalSize" (changed)="onPaginateChange($event)"></pagination>
+    <!--<pagination [max]="max" [current-page]="currentPage" [page-size]="pageSizeSelected" [total-size]="totalSize" (changed)="onPaginateChange($event)"></pagination>-->
+  </div>
+</div>
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading"><label>User</label></div>
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th>S/No</th>
+          <th>
+            <sort [sort-field]="sortables[0]" (changed)="onSortChange($event)">Name</sort>
+          </th>
+          <th>
+            <sort [sort-field]="sortables[1]" (changed)="onSortChange($event)">Email</sort>
+          </th>
+          <th>
+            <sort [sort-field]="sortables[2]" (changed)="onSortChange($event)">Phone</sort>
+          </th>
+          <th>
+            <sort [sort-field]="sortables[3]" (changed)="onSortChange($event)">Website</sort>
+          </th>
+          <th>Actions</th>
+        </tr>
+        <tr>
+          <th>&nbsp;</th>
+          <th>
+            <search-input [search-field]="searchables[0]" (changed)="onFilterChange($event)"></search-input>
+          </th>
+          <th>
+            <search-input [search-field]="searchables[1]" (changed)="onFilterChange($event)"></search-input>
+          </th>
+          <th>
+            <search-input [search-field]="searchables[2]" (changed)="onFilterChange($event)"></search-input>
+          </th>
+          <th>
+            <search-input [search-field]="searchables[3]" (changed)="onFilterChange($event)"></search-input>
+          </th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let user of users; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.phone}}</td>
+        <td>{{user.website}}</td>
+        <td>
+          <a custom-modal-trigger="user" (click)="operation='User - View'">
+          <span class="glyphicon glyphicon-search"></span>
+        </a>
+          <a custom-modal-trigger="user" (click)="operation='User - Update'">
+          <span class="glyphicon glyphicon-edit"></span>
+        </a>
+          <a custom-modal-trigger="user" (click)="operation='User - Delete'">
+          <span class="glyphicon glyphicon-trash"></span>
+        </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<custom-modal [modal-title]="operation" [modal-id]="'user'">
+  <app-user-detail></app-user-detail>
+</custom-modal>

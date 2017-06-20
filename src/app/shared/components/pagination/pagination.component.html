@@ -1,0 +1,25 @@
+<ul class="pagination pagination-sm">
+    <li data-ng-disabled="!hasPrevious()" [class.disabled]="!hasPrevious()">
+        <span (click)="changePage(1)">
+            <span aria-hidden="true">&laquo;&laquo;</span>
+        </span>
+    </li>
+    <li data-ng-disabled="!hasPrevious()" [class.disabled]="!hasPrevious()">
+        <span (click)="changePage(current-1)">
+            <span aria-hidden="true">&laquo;</span>
+        </span>
+    </li>
+    <li *ngFor="let page of pages" [class.active]="page === current">
+        <span (click)="changePage(page)">{{page}} <span *ngIf="page === current" class="sr-only">(current)</span></span>
+    </li>
+    <li data-ng-disabled="!hasNext()" [class.disabled]="!hasNext()">
+        <span (click)="changePage(current+1)">
+            <span aria-hidden="true">&raquo;</span>
+        </span>
+    </li>
+    <li data-ng-disabled="!hasNext()" [class.disabled]="!hasNext()">
+        <span (click)="changePage(pageCount)">
+            <span aria-hidden="true">&raquo;&raquo;</span>
+        </span>
+    </li>
+</ul>

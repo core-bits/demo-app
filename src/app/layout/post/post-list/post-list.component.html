@@ -1,0 +1,66 @@
+<app-page-title [title]="'Post Management'" [icon]="'glyphicon-tags'"></app-page-title>
+
+<div class="row">
+  <div class="pull-right control-holder">
+    <label>Page Size</label>
+    <page-size [collection]="pageSizeCollection" [default]="pageSizeSelected" (changed)="onPageSizeChange($event)"></page-size>
+    <pagination [max]="max" [page-size]="pageSizeSelected" [total-size]="totalSize" (changed)="onPaginateChange($event)"></pagination>
+  </div>
+</div>
+
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading"><label>Posts</label></div>
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th>S/No</th>
+          <th>
+            <sort [sort-field]="sortables[0]" (changed)="onSortChange($event)">UserId</sort>
+          </th>
+          <th>
+            <sort [sort-field]="sortables[1]" (changed)="onSortChange($event)">Title</sort>
+          </th>
+          <th>
+            <sort [sort-field]="sortables[2]" (changed)="onSortChange($event)">Body</sort>
+          </th>
+          <th width="10%">Actions</th>
+        </tr>
+        <tr>
+          <th>&nbsp;</th>
+          <th>
+            <search-input [search-field] ="searchables[0]" (changed)="onFilterChange($event)"></search-input>
+          </th>
+          <th>
+            <search-input [search-field] ="searchables[1]" (changed)="onFilterChange($event)"></search-input>
+          </th>
+          <th>
+            <search-input [search-field] ="searchables[2]" (changed)="onFilterChange($event)"></search-input>
+          </th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let post of posts; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{post.userId}}</td>
+        <td>{{post.title}}</td>
+        <td>{{post.body}}</td>
+        <td>
+          <a custom-modal-trigger="post" (click)="operation='Post - View'">
+          <span class="glyphicon glyphicon-search"></span>
+        </a>
+          <a custom-modal-trigger="post" (click)="operation='Post - Update'">
+          <span class="glyphicon glyphicon-edit"></span>
+        </a>
+          <a custom-modal-trigger="post" (click)="operation='Post - Delete'">
+          <span class="glyphicon glyphicon-trash"></span>
+        </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<custom-modal [modal-title]="operation" [modal-id]="'post'">
+  <app-post-detail></app-post-detail>
+</custom-modal>

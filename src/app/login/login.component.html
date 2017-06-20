@@ -1,0 +1,18 @@
+<app-panel panel-title="Login">
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm.value);  loginForm.resetForm();" autocomplete="off">
+        <div class="row login-container">
+            <div class="col-md-12">
+                <label>Username </label>
+                <input (ngModel)="username" id="username" name="username" class="form-control" placeholder="Username" />
+            </div>
+            <div class="col-md-12">
+                <label>Password </label>
+                <input (ngModel)="password" id="password" name="password" type="password" class="form-control" placeholder="Password" />
+            </div>
+            <div class="col-md-12">
+                <button [disabled] = "loginInProgress" type="submit" class="btn btn-primary pull-right">Login</button>
+                <button type="reset" class="btn btn-default pull-right">Cancel</button>
+            </div>
+        </div>
+    </form>
+</app-panel>

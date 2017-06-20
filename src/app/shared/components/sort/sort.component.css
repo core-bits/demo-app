@@ -1,0 +1,18 @@
+a {
+    cursor: pointer;
+    color: inherit;
+}
+
+a:hover, a:focus, a:active{
+    text-decoration: none;
+    color: inherit;
+}
+
+a > span.glyphicon{
+    cursor: pointer;
+    margin-left: 0px;
+}
+
+.active-sort, .active-sort:hover, .active-sort:focus, .active-sort:active{
+    color: #337ab7;
+}
