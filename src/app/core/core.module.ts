@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { JQUERY_TOKEN } from './jquery.service';
-import { TOASTR_TOKEN, IToastr } from './toastr.service';
+import { JQUERY_PROVIDER } from './jquery.service';
+import { TOASTR_PROVIDER } from './toastr.service';
 import { ParamUtil } from './iparam';
 
 
@@ -16,8 +16,8 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
 //
 // exports:: exports modules AND components/directives/pipes that other modules may want to use
 
-declare let toastr: IToastr;
-declare let jQuery: any;
+//declare let jQuery: any;
+//declare let toastr: IToastr;
 
 @NgModule({
   imports: [
@@ -32,12 +32,11 @@ declare let jQuery: any;
   ],
   declarations: [],
   providers: [
-    { provide: JQUERY_TOKEN, useValue: jQuery },
-    { provide: TOASTR_TOKEN, useValue: toastr }
+    TOASTR_PROVIDER,
+    JQUERY_PROVIDER
   ]
 })
 export class CoreModule {
-
   constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
     throwIfAlreadyLoaded(parentModule, 'CoreModule');
   }
