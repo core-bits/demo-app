@@ -26,6 +26,8 @@ export class LoginComponent {
                 if (response && response['_body'] == "[]") {
                     this.loginInvalid = true;
                     this.toastr.error("Invalid Username or Password", "Login Error");
+                } else if (!response) {
+                    this.toastr.error("An unknown error was encountered. Please try again", "Unknown Error");
                 } else {
                     this.router.navigate(['layout/dashboard']);
                 }

@@ -13,6 +13,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { PageSizeComponent, PageSizeConfig } from './components/page-size/page-size.component';
 import { SortDirective } from './components/sort/sort.directive';
 import { SortComponent, SortConfig } from './components/sort/sort.component';
+import { PageOfComponent } from './components/page-of/page-of.component';
 
 import { PageTitleModule } from './modules/page-title/page-title.module';
 
@@ -34,7 +35,8 @@ import { PageTitleModule } from './modules/page-title/page-title.module';
     PaginationComponent,
     PageSizeComponent,
     SortDirective,
-    SortComponent
+    SortComponent,
+    PageOfComponent
   ],
   declarations: [
     FooterComponent,
@@ -46,7 +48,8 @@ import { PageTitleModule } from './modules/page-title/page-title.module';
     PaginationComponent,
     PageSizeComponent,
     SortDirective,
-    SortComponent
+    SortComponent,
+    PageOfComponent
   ],
   providers: [
     SearchFieldUtils,

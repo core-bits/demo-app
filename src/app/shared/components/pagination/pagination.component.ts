@@ -20,10 +20,11 @@ export class PaginationComponent implements OnChanges {
     @Output() changed: EventEmitter<number>;
 
     constructor() {
-        this.changed = new EventEmitter<number>(true);
+        this.changed = new EventEmitter<number>(true);    
+        this.max = this.max > 0 ? this.max : 5;    
     }
 
-    ngOnChanges(changes: SimpleChanges) {
+    ngOnChanges(changes: SimpleChanges) {        
         let pageSizeChange: SimpleChange = changes['pageSize'];
         if (pageSizeChange && pageSizeChange.firstChange === false && pageSizeChange.currentValue !== pageSizeChange.previousValue) {
             this.current = 1;
@@ -34,8 +35,7 @@ export class PaginationComponent implements OnChanges {
     private load() {
         if (this.totalSize > 0 && this.pageSize > 0) {
             this.pageCount = Math.ceil(this.totalSize / this.pageSize);
-            this.pageCount = this.pageCount && this.pageCount > 0 ? this.pageCount : 0;
-            this.max = this.max && this.max <= this.pageCount ? this.max : this.pageCount >= 5 ? 5 : this.pageCount;
+            this.pageCount = this.pageCount > 0 ? this.pageCount : 0;            
             this.current = this.current && this.current <= this.pageCount ? this.current : 1;
 
             this.pages = [];
@@ -49,12 +49,13 @@ export class PaginationComponent implements OnChanges {
                 [start, end] = this.rotatePagination();
                 this.pages = this.pages.slice(start, end);
             }
+            
         } else {
             console.warn(`[total-size]=${this.totalSize} and [page-size]=${this.pageSize}. Permitted values must be greater than zero.`);
         }
     }
 
-    private changePage(pageNo): void {
+    private changePage(pageNo: number): void {
         if (pageNo < 1) {
             return;
         }

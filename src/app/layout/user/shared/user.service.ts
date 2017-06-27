@@ -34,7 +34,7 @@ export class UserService {
         description: "OK",
         data: body,
         total: 10
-      }
+      };
       return iresponse;
     }).catch(this.handleError);
   }

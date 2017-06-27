@@ -4,6 +4,7 @@
   <div class="pull-right control-holder">
     <label>Page Size</label>
     <page-size [collection]="pageSizeCollection" [default]="pageSizeSelected" (changed)="onPageSizeChange($event)"></page-size>
+    <label>[<page-of [current]="currentPage" [total]="totalSize" [page-size]="pageSizeSelected"></page-of>]</label>
     <pagination [max]="max" [page-size]="pageSizeSelected" [total-size]="totalSize" (changed)="onPaginateChange($event)"></pagination>
   </div>
 </div>

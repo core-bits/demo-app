@@ -55,8 +55,8 @@ export class UserListComponent implements OnInit {
     this.doQuery();
   }
 
-  onFilterChange(event: ISearchField[]) {
-    this.searchFieldList = event;
+  onFilterChange(fields: ISearchField[]) {
+    this.searchFieldList = fields;
     this.doQuery();
   }
 
@@ -99,6 +99,10 @@ export class UserListComponent implements OnInit {
       { id: this.fields[0], name: this.fields[2], inputType: this.searchConfig.TEXT, operationType: this.searchConfig.EQUAL },
       { id: this.fields[0], name: this.fields[3], inputType: this.searchConfig.TEXT, operationType: this.searchConfig.EQUAL }
     ];
+  }
+
+  private index(index: number) : number{
+    return ((this.currentPage - 1) * this.pageSizeSelected) + (index + 1);
   }
 
 }

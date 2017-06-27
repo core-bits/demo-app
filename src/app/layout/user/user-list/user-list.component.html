@@ -1,9 +1,10 @@
 <app-page-title [title]="'User Management'" [icon]="'glyphicon-user'"></app-page-title>
 
 <div class="row">
-  <div class="pull-right control-holder">
+  <div class="pull-right control-holder">    
     <label>Page Size</label>
     <page-size [collection]="pageSizeCollection" [default]="pageSizeSelected" (changed)="onPageSizeChange($event)"></page-size>
+    <label>[<page-of [current]="currentPage" [total]="totalSize" [page-size]="pageSizeSelected"></page-of>]</label>
     <pagination [max]="max" [page-size]="pageSizeSelected" [total-size]="totalSize" (changed)="onPaginateChange($event)"></pagination>
     <!--<pagination [max]="max" [current-page]="currentPage" [page-size]="pageSizeSelected" [total-size]="totalSize" (changed)="onPaginateChange($event)"></pagination>-->
   </div>
@@ -47,7 +48,7 @@
         </tr>
       </thead>
       <tr *ngFor="let user of users; let i = index">
-        <td>{{i + 1}}</td>
+        <td>{{index(i)}}</td>
         <td>{{user.name}}</td>
         <td>{{user.email}}</td>
         <td>{{user.phone}}</td>

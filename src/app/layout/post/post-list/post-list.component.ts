@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { IPost } from '../shared/ipost';
 import { PostService } from '../shared/post.service';
-import { ISearchField, SearchFieldConfig } from '../../../shared/components/search-input/search-input.component';
+import { ISearchField, SearchFieldConfig, SearchFieldUtils } from '../../../shared/components/search-input/search-input.component';
 import { SortConfig, ISort } from '../../../shared/components/sort/sort.component';
+import { IParam, IParamKeyValuePair } from '../../../core/iparam';
+import { IResponse } from '../../../core/user.model';
 
 @Component({
   selector: 'app-post-list',
@@ -13,16 +15,20 @@ export class PostListComponent implements OnInit {
   pageSizeSelected: number = 10;
   pageSizeCollection: number[] = [10, 25, 50, 100];
   totalSize: number = 1000;
-  currentPage: number;
+  currentPage: number = 1;
   max = 6;
   sorted: ISort;
   posts: IPost[];
   operation: string;
+  searchFieldList: ISearchField[];
   fields: string[] = ['userId', 'title', 'body'];
   sortables: ISort[];
   searchables: ISearchField[];
 
-  constructor(private postService: PostService, private sortConfig: SortConfig, private searchConfig: SearchFieldConfig) { }
+  constructor(private postService: PostService, private searchUtil: SearchFieldUtils,
+    private sortConfig: SortConfig, private searchConfig: SearchFieldConfig) {
+    this.searchFieldList = new Array<ISearchField>();
+  }
 
   ngOnInit() {
     this.getPostList();
@@ -30,21 +36,43 @@ export class PostListComponent implements OnInit {
     this.loadSearchFieldPayload();
   }
 
-  onPageSizeChange(event: number) {
-    this.pageSizeSelected = event;
+  onPageSizeChange(size: number) {
+    this.pageSizeSelected = size;
+    //Please review
+    this.currentPage = 1;
+    this.doQuery();
   }
 
   onPaginateChange(current: number) {
     this.currentPage = current;
+    this.doQuery();
   }
 
   onSortChange(sorted: ISort) {
     this.sorted = sorted;
-    console.log(`field=>${sorted.field}, direction=>${sorted.direction.description}`);
+    //console.log(`field=>${sorted.field}, direction=>${sorted.direction.description}`);
+    this.doQuery();
   }
 
-  onFilterChange(event: ISearchField) {
-    //To be implemented
+  onFilterChange(fields: ISearchField[]) {
+    this.searchFieldList = fields;
+    this.doQuery();
+  }
+
+  private doQuery() {
+    if (this.sorted || (this.searchFieldList && this.searchFieldList.length > 0) || (this.currentPage > 0 && this.pageSizeSelected > 0)) {
+      this.doSearch();
+    } else {
+      this.getPostList();
+    }
+  }
+
+  private doSearch() {
+    var param: IParam = this.searchUtil.buildIParams(this.searchFieldList);
+    this.postService.getPostListByParams(param, this.sorted, this.currentPage, this.pageSizeSelected).subscribe((response: IResponse<IPost[]>) => {
+      this.posts = response.data;
+      this.totalSize = response.total;
+    });
   }
 
   private getPostList(): void {
