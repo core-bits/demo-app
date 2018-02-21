@@ -1,0 +1,77 @@
+<!-- Start Hack Executions -->
+<div class="row">
+  <div class="col-md-7">
+    <div class="panel panel-default">
+      <div class="panel-heading hack-panel-fix">
+        <div class="panel-title">
+          <h4 class="hack-h4-fix">Hack List</h4>
+          <button class="btn btn-primary pull-right">Launch New</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Campaign ID</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>State</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="hackers?.length">
+            <tr *ngFor="let hacker of hackers; let i = index" (click)="onHackerSelected(hacker)">
+              <td>{{i + 1}}</td>
+              <td>{{hacker.campaignId}}</td>
+              <td>{{hacker.startDate}}</td>
+              <td>{{hacker.endDate}}</td>
+              <td>{{hacker.state}}</td>
+            </tr>
+          </tbody>
+          <no-record-found [cols]="5" [collection]="hackers"></no-record-found>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">Detail Area Title</h4>
+      </div>
+      <div class="panel-body detail-container" *ngIf="selectedHacker; else noselection">
+        <h3><small>Hack Detail</small></h3>
+        <div class="panel panel-info">
+          <div class="panel-body task-detail">
+            <div class="row">
+              <div class="col-md-3"><b>Campaign ID: </b></div>
+              <div class="col-md-9"><var>{{selectedHacker.campaignId}} </var></div>
+            </div>
+            <div class="row">
+              <div class="col-md-3"><b>Start Date: </b></div>
+              <div class="col-md-9"><var>{{selectedHacker.startDate}} </var></div>
+            </div>
+            <div class="row">
+              <div class="col-md-3"><b>End Date: </b></div>
+              <div class="col-md-9"><var>{{selectedHacker.endDate}} </var></div>
+            </div>
+            <div class="row">
+              <div class="col-md-3"><b>State: </b></div>
+              <div class="col-md-9"><var>{{selectedHacker.state}} </var></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #noselection>
+        <div class="panel-body">
+          <h3><small>Select a record on the left to view details</small></h3>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<!-- End Hack Executions -->
+
+
+<!-- Start Launch New Executions -->
+
+<!-- End Launch New Executions -->

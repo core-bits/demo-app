@@ -23,7 +23,7 @@ export const routes: Routes = [
             {
                 path: 'albums',
                 loadChildren: '../layout/album/album.module#AlbumModule'
-            },
+            }
         ]
     }
 ]
@@ -38,4 +38,6 @@ export const routes: Routes = [
 })
 export class LayoutRoutingModule { }
 
-export const LayoutModuleRoutedComponents = [LayoutComponent];
+export const LayoutModuleRoutedComponents = [
+    LayoutComponent
+];

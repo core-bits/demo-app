@@ -7,36 +7,43 @@ import { IParam, IParamKeyValuePair } from '../../../core/iparam';
 import { ISearchField, SearchFieldUtils } from '../../../shared/components/search-input/search-input.component';
 import { ISort } from '../../../shared/components/sort/sort.component';
 import { LAYOUT_CONFIG } from '../../shared/services/config';
+import { SpinnerService } from '../../../core/spinner/spinner.service';
 
 @Injectable()
 export class UserService {
   private ROOT_PATH = LAYOUT_CONFIG.ROOT_PATH.ENV.DEVELOPMENT;
 
-  constructor(private http: Http, private util: ParamUtil) { }
+  constructor(private http: Http, private util: ParamUtil, private spinnerService: SpinnerService) { }
 
   getUserList(): Observable<IUser[]> {
-    return this.http.get(this.ROOT_PATH + 'users').map(this.mapToIUser).catch(this.handleError);
+    this.spinnerService.show();
+    return this.http.get(this.ROOT_PATH + 'users')
+      .map(this.mapToIUser)
+      .catch(this.handleError)
+      .finally(() => this.spinnerService.hide());
   }
 
   getUserListWithParams(params: IParam): String {
     return this.util.buildQueryParams(this.ROOT_PATH + 'users', params);
   }
 
-  getUserListByParams(params?: IParam, sorted?: ISort, page?: number, limit?: number): Observable<IResponse<IUser[]>> {
+  getUserListByParams(params?: IParam, sorted?: ISort, page?: number, limit?: number): Observable<IResponse<IUser[]>> {    
     const sortedfield = sorted && sorted.field ? sorted.field : null;
     const sortedorder = sorted && sorted.direction ? sorted.direction.name : null;
     const path: string = this.util.buildQueryParams(this.ROOT_PATH + 'users', params, sortedfield, sortedorder, page, limit);
-    return this.http.get(path).map((response : Response) => {
+    this.spinnerService.show();
+    return this.http.get(path).map((response: Response) => {
       let header = response.headers;
-      let body : IUser[] = <IUser[]>response.json();
-      let iresponse : IResponse<IUser[]> = {
+      let body: IUser[] = <IUser[]>response.json();
+      let iresponse: IResponse<IUser[]> = {
         code: "0",
         description: "OK",
         data: body,
         total: 10
       };
       return iresponse;
-    }).catch(this.handleError);
+    }).catch(this.handleError)
+    .finally(() => this.spinnerService.hide());
   }
 
   private mapToIUser(response: Response): IUser[] {

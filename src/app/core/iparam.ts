@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Headers, RequestOptions } from "@angular/http";
+import { Observable } from "rxjs/Observable";
 
 export interface IParam {
   keyValue: IParamKeyValuePair[];
@@ -13,7 +15,15 @@ export interface IParamKeyValuePair {
 }
 
 @Injectable()
+export class ContentType {
+  APPLICATION_X_WWW_FORM_URLENCONDED: IParamKeyValuePair = { key: 'Content-Type', value: 'application/x-www-form-urlencoded' };
+  APPLICATION_JSON: IParamKeyValuePair = { key: 'Content-Type', value: 'application/json' };
+}
+
+@Injectable()
 export class ParamUtil {
+  authToken: string = "876588dss3scxa2422ssds2212";
+  constructor(private contentType: ContentType) { }
 
   buildQueryParams(context: string, param: IParam, sortfield?: string, sortorder?: string, page?: number, limit?: number): string {
     let isSort, isPaging, isParam: boolean = false;
@@ -44,6 +54,25 @@ export class ParamUtil {
     }
 
     return context;
+  }
+
+  getRequestOption(contentType?: IParamKeyValuePair): RequestOptions {
+    let headers: Headers = new Headers();
+    if (contentType) {
+      headers.append(contentType.key, contentType.value);
+    } else {
+      headers.append(this.contentType.APPLICATION_JSON.key, this.contentType.APPLICATION_JSON.value);
+    }
+    headers.append('authToken', this.authToken);
+    return new RequestOptions({ headers: headers });
+  }
+
+  handleError(error: Response) {
+    return Observable.throw(error.statusText);
+  }
+
+  handleErrorWithBooleanReturnValue(error: Response) {
+    return Observable.of(false);
   }
 
 

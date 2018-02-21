@@ -5,22 +5,23 @@ import { Observable } from 'rxjs/Rx';
 import { IUser } from '../core/user.model';
 import { UserProfileService } from '../core/user-profile.service';
 import { LAYOUT_CONFIG } from '../layout/shared/services/config';
+import { SpinnerService } from '../core/spinner/spinner.service';
 
 @Injectable()
 export class LoginService {
   private PATH = LAYOUT_CONFIG.ROOT_PATH.ENV.DEVELOPMENT;
 
-  constructor(private http: Http, private currentUser: UserProfileService) { }
+  constructor(private http: Http, private currentUser: UserProfileService, private spinnerService: SpinnerService) { }
 
-  authenticateUser(username: string, password: string): Observable<Response> {    
-      return this.http.get(this.PATH + 'users?username=' + username + '&password=' + password).do((response: Response) => {
-        if (response) {
-          this.currentUser.user = <IUser>response.json()[0];
-          this.currentUser.isLoggedIn = !!this.currentUser.user;
-        }
-      }).catch(error => {
-        return Observable.of(false);
-      });
+  authenticateUser(username: string, password: string): Observable<Response> {
+    this.spinnerService.show();
+    return this.http.get(this.PATH + 'users?username=' + username + '&password=' + password)
+    .do((response: Response) => {
+      if (response != null) {
+        this.currentUser.user = <IUser>response.json()[0];
+        this.currentUser.isLoggedIn = !!this.currentUser.user;
+      }
+    }).catch(this.handleErrorBoolean).finally(() => this.spinnerService.hide());
   }
 
   //   mockCallAll(): Observable<IPost[]> {
@@ -49,6 +50,10 @@ export class LoginService {
 
   private handleError(error: Response) {
     return Observable.throw(error.statusText);
+  }
+
+  private handleErrorBoolean(error: Response){
+    return Observable.throw(false);
   }
 
 }

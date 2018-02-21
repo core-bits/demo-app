@@ -1,0 +1,67 @@
+<form class="form-horizontal" [formGroup]="taskGroup" (ngSubmit)="submit()">
+  <div class="form-group">
+    <label for="name" class="col-sm-3 control-label">Group</label>
+    <div class="col-sm-9">
+      <select formControlName="group" name="group" class="form-control">
+        <option>Select Group</option>
+        <option *ngFor="let grp of groups">{{grp.name}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="name" class="col-sm-3 control-label">Name</label>
+    <div class="col-sm-9">
+      <input formControlName="name" type="text" class="form-control" id="name" placeholder="Name">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="description" class="col-sm-3 control-label">Description</label>
+    <div class="col-sm-9">
+      <input formControlName="description" type="text" class="form-control" id="description" placeholder="Description">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="description" class="col-sm-3 control-label">OS Platforms</label>
+    <nav class="col-sm-9">
+      <a [class.active]="isActiveButton(script)" *ngFor="let script of scripts; let i = index;" (click)="selectScript(script)"><i class="{{script.osPlatform.fontAwesomeIcon}}" aria-hidden="true"></i>  {{script.osPlatform.name}}</a>
+    </nav>
+  </div>
+
+  <div class="form-group">
+    <div formArrayName="scriptArrayGroup" *ngIf="selectedScript">
+      <div [formGroupName]="i" *ngFor="let s of scriptArrayGroup.controls; let i = index;">
+        <div class="col-sm-offset-3 col-sm-9" *ngIf="isSelectedPlatform(i)">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <label class="control-label"><i class="{{scripts[i].osPlatform.fontAwesomeIcon}}" aria-hidden="true"></i> {{scripts[i].osPlatform.name}}</label>
+            </div>
+            <div class="panel-body">
+              <input type="text" formControlName="scriptName" class="form-control os-script-input-fix" placeholder="{{scripts[i].osPlatform.name}} script">
+              <div formArrayName="inputParameterArrayGroup" class="param-fix">
+                <div [formGroupName]="j" *ngFor="let t of s.controls.inputParameterArrayGroup.controls; let j = index;">
+                  <div class="form-inline param-input-fix">
+                    <label class="sr-only">Value {{j+1}}</label>
+                    <input type="text" formControlName="paramInput" class="form-control input-sm" placeholder="Enter Parameter {{j + 1}}">
+                    <button (click)="removeParameter(i, j)" class="btn btn-sm btn-default" type="button"><i class="fa fa-minus" arial-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+              <button (click)="addParameter(i)" class="btn btn-sm btn-primary" type="button"><i class="fa fa-plus" arial-hidden="true"></i> Add Input Parameter</button>
+              <!-- <app-input-parameter [formGroup]="formGroup" [scriptItem]="s" [parentIndex]="i"></app-input-parameter> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <app-task-script *ngIf="selectedScript" [scripts]="scripts" [selectedScript]="selectedScript" [formGroup]="taskGroup"></app-task-script> -->
+
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <button type="submit" class="btn btn-primary" [disabled]="taskGroup?.invalid">Submit</button>
+    </div>
+  </div>
+</form>

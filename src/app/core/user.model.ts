@@ -17,10 +17,15 @@ export interface IAddress {
     geo: IGeo;
 }
 
-export interface IResponse<T> {
+export interface IBaseResponse {
+    code: string;
+    description: string;
+}
+
+export interface IResponse<T>{
     code?: string;
     description?: string;
-    data : T;
+    data: T;
     total?: number;
 }
 

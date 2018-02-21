@@ -51,7 +51,7 @@ export class AlbumListComponent implements OnInit {
   onSortChange(sorted: ISort) {
     this.sorted = sorted;
     this.doQuery();
-    console.log(`field=>${sorted.field}, direction=>${sorted.direction.description}`);
+    //console.log(`field=>${sorted.field}, direction=>${sorted.direction.description}`);
   }
 
   onFilterChange(fields: ISearchField[]) {

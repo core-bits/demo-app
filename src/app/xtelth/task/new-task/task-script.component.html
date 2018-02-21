@@ -1,0 +1,49 @@
+<!-- <div class="panel panel-default">
+  <div class="panel-heading">
+    <label class="control-label"><i class="{{os.fontAwesomeIcon}}" aria-hidden="true"></i>  {{os.name}}</label>
+  </div>
+  <div class="panel-body">
+    <input type="text" class="form-control os-script-input-fix" (ngModel)="os" name="os" id="os" placeholder="{{os.name}} script">
+    <app-input-parameter></app-input-parameter>
+  </div>
+</div> -->
+
+<!-- <div class="form-group">
+  <label for="description" class="col-sm-3 control-label">OS Platforms</label>
+  <div class="col-sm-9">
+    <div class="checkbox-inline" *ngFor="let os of osPlatforms; let k = index">
+      <label>
+          <input #osCheckbox type="checkbox" (change)="toggleOSCheckbox(k, osCheckbox.checked)" name="os" id="os"><i class="{{os.fontAwesomeIcon}}" aria-hidden="true"></i>  {{os.name}}
+        </label>
+    </div>
+  </div>
+</div> -->
+
+
+<div [formGroup]="formGroup" class="form-group">
+  <div formArrayName="scriptArrayGroup">
+    <div [formGroupName]="i" *ngFor="let s of scriptArrayGroup.controls; let i = index;">
+      <div class="col-sm-offset-3 col-sm-9">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <label class="control-label"><i class="{{scripts[i].osPlatform.fontAwesomeIcon}}" aria-hidden="true"></i> {{scripts[i].osPlatform.name}}</label>
+          </div>
+          <div class="panel-body">
+            <input type="text" formControlName="scriptName" class="form-control os-script-input-fix" placeholder="{{scripts[i].osPlatform.name}} script">
+            <div formArrayName="inputParameterArrayGroup" class="param-fix">
+              <div [formGroupName]="j" *ngFor="let t of s.controls['inputParameterArrayGroup'].controls; let j = index;">
+                <div class="form-inline param-input-fix">
+                  <label class="sr-only">Value {{j+1}}</label>
+                  <input type="text" formControlName="paramInput" class="form-control input-sm" placeholder="Enter Parameter {{j + 1}}">
+                  <button (click)="removeParameter(i, j)" class="btn btn-sm btn-default" type="button"><i class="fa fa-minus" arial-hidden="true"></i></button>
+                </div>
+              </div>
+            </div>
+            <button (click)="addParameter(i)" class="btn btn-sm btn-primary" type="button"><i class="fa fa-plus" arial-hidden="true"></i> Add Input Parameter</button>
+            <!-- <app-input-parameter [formGroup]="formGroup" [scriptItem]="s" [parentIndex]="i"></app-input-parameter> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

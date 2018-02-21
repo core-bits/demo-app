@@ -27,8 +27,14 @@ const routes: Routes = [
     },
     {
         path: 'layout',
-        loadChildren: './layout/layout.module#LayoutModule'
-        ,
+        loadChildren: './layout/layout.module#LayoutModule',
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        canLoad: [AuthGuard]
+    },
+    {
+        path: 'xtelth',
+        loadChildren: './xtelth/xtelth.module#XtelthModule',
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         canLoad: [AuthGuard]

@@ -1,7 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+html, body{
+    background-color: #f5f5f5 !important;
+}
+
+.jumbotron, .container{
+    background-color: #fff !important;
+}
+
+.container{
+    border-radius: 6px !important;
+}
+
 a > span.glyphicon{
     cursor: pointer;
     margin-left: 10px;
+}
+
+a{
+    cursor: pointer;
 }
 
 .spinner {
@@ -49,7 +65,7 @@ a > span.glyphicon{
     }
 }
 
-.panel-heading{
+/*.panel-heading{
     padding: 8px !important;
 }
 
@@ -59,7 +75,7 @@ a > span.glyphicon{
 
 .panel-heading label{
     margin-bottom: 0px !important;
-}
+}*/
 
 .pagination{
     margin: 10px 0px -10px 0px !important;

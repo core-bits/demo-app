@@ -29,7 +29,8 @@ export class LoginComponent {
                 } else if (!response) {
                     this.toastr.error("An unknown error was encountered. Please try again", "Unknown Error");
                 } else {
-                    this.router.navigate(['layout/dashboard']);
+                    //this.router.navigate(['layout/dashboard']);
+                    this.router.navigate(['/xtelth/default/tasks']);
                 }
                 this.loginInProgress = false;
             });

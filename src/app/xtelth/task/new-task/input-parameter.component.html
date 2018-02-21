@@ -1,0 +1,12 @@
+<form [formGroup]="formGroup" class="form-inline" novalidate>
+    <div formArrayName="inputParameterArrayGroup" class="param-fix">
+        <div [formGroupName]="j" *ngFor="let param of scriptItem.controls['inputParameterArrayGroup'].controls; let j = index;">
+            <div class="form-group param-input-fix">
+                <label class="sr-only">Value {{j + 1}}</label>
+                <input type="text" formControlName="paramInput" class="form-control input-sm" placeholder="Enter Parameter {{j + 1}}">
+                <button (click)="removeParameter(parentIndex, j)" class="btn btn-sm btn-default" type="button"><i class="fa fa-minus" arial-hidden="true"></i></button>
+            </div>
+        </div>
+    </div>
+    <button (click)="addParameter(parentIndex)" class="btn btn-sm btn-primary" type="button"><i class="fa fa-plus" arial-hidden="true"></i> Add Input Parameter</button>
+</form>

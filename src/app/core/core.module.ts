@@ -5,10 +5,12 @@ import { RouterModule } from '@angular/router';
 
 import { JQUERY_PROVIDER } from './jquery.service';
 import { TOASTR_PROVIDER } from './toastr.service';
-import { ParamUtil } from './iparam';
+import { ParamUtil, ContentType } from './iparam';
 
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
+
+import { SpinnerModule } from './spinner/spinner.module';
 
 
 // imports:: imports the module's exports. which is usually declarables and providers
@@ -24,16 +26,20 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
     CommonModule,
     FormsModule,
     RouterModule,
+    SpinnerModule
   ],
   exports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    SpinnerModule
   ],
   declarations: [],
   providers: [
     TOASTR_PROVIDER,
-    JQUERY_PROVIDER
+    JQUERY_PROVIDER,
+    ContentType,
+    ParamUtil
   ]
 })
 export class CoreModule {

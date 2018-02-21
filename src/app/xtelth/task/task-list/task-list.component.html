@@ -1,0 +1,111 @@
+<div class="row" *ngIf="!isNew">
+  <div class="col-md-7">
+    <div class="panel panel-default">
+      <div class="panel-heading hack-panel-fix">
+        <div class="panel-title">
+          <h4 class="hack-h4-fix">Task List</h4>
+          <button class="btn btn-primary pull-right" (click)="toggleClick()">New</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="tasks?.length">
+            <tr *ngFor="let task of tasks; let i = index" (click)="onSelect(task)">
+              <td>{{i + 1}}</td>
+              <td>{{task.name}}</td>
+              <td>{{task.description}}</td>
+            </tr>
+          </tbody>
+          <no-record-found [cols]="3" [collection]="tasks"></no-record-found>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">Detail Area Title</h4>
+      </div>
+      <div class="panel-body detail-container" *ngIf="selected; else noselection">
+        <h3><small>Task Detail</small></h3>
+        <div class="panel panel-info">
+          <div class="panel-body task-detail">
+            <div class="row">
+              <div class="col-md-3"><b>Name: </b></div>
+              <div class="col-md-9"><var>{{selected.name}} </var></div>
+            </div>
+            <div class="row">
+              <div class="col-md-3"><b>Description: </b></div>
+              <div class="col-md-9"><var>{{selected.description}} </var></div>
+            </div>
+          </div>
+        </div>
+
+        <h3><small>Shell Scripts</small></h3>
+        <div class="panel panel-info">
+          <div class="panel-body task-detail">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Script</th>
+                  <th>OS Platform</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="selected?.commands?.length">
+                <tr *ngFor="let command of selected.commands | mapToIterable; let i = index">
+                  <td>{{i + 1}}</td>
+                  <td>{{command.value.command}}  <a id="{{i+1}}" app-popover [title]="'Task Input Parameters'" [params]="command.value.taskInputParameter"><i class="fa fa-info-circle" aria-hidden="true"></i></a></td>
+                  <td>{{command.value.osPlatform.name}}</td>
+                </tr>
+              </tbody>
+                <no-record-found [cols]="3" [collection]="selected.commands | mapToIterable"></no-record-found>
+            </table>
+          </div>
+        </div>
+      </div>
+      <ng-template #noselection>
+        <div class="panel-body">
+          <h3><small>Select a record on the left to view details</small></h3>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<!-- Start New -->
+
+<div class="row" *ngIf="isNew">
+  <div class="col-md-7">
+    <div class="panel panel-default">
+      <div class="panel-heading hack-panel-fix">
+        <div class="panel-title">
+          <h4 class="hack-h4-fix">Task List</h4>
+          <button class="btn btn-primary pull-right" (click)="toggleClick()">List</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <app-new-task></app-new-task>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">Information</h4>
+      </div>
+      <div class="panel-body">
+        <p>User Information/Instruction on New Task placeholder.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End New -->

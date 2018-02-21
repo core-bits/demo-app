@@ -1,0 +1,36 @@
+.panel-heading{
+    padding: 15px;
+}
+
+.table-hover{
+    cursor: pointer;
+}
+
+.panel-body > h3{
+    margin-top: 0px;
+}
+
+.panel-body > .row{
+    margin-bottom: 5px;
+}
+
+.task-detail{
+    background-color: #F5F9FF;
+}
+
+.detail-container{
+    padding: 15px 30px;
+}
+
+.hack-h4-fix{
+    display: inline-block;
+}
+
+.hack-panel-fix{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+h4+button{
+    margin-top: 3px;
+}
